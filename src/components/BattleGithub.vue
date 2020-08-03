@@ -2,8 +2,11 @@
   <div class="hello">
     <h3>Welcome to Github Battle</h3>
     <div class="card mx-auto my-3" style="width: 18rem;">
-      <div class="card-header h4">
-        Player 1
+      <div class="input-group">
+        <input v-model="github_username" type="text" class="form-control" placeholder=" Insert the username here" aria-label="Username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" @click="catch_data" type="button" id="button-addon2">Go</button>
+        </div>
       </div>
       <img :src="avatar" class="card-img-top img-thumbnail mx-auto m-2">
       <ul class="list-group list-group-flush">
@@ -29,11 +32,14 @@ export default {
       followers: 0,
       gists: 0,
       score: 0,
-      followers_object: []
+      followers_object: [],
+      github_username: ''
     };
   },
-  mounted() {
-    this.axios.get('https://api.github.com/users/rayacarlo')
+  methods: {
+    catch_data(ev) {
+      ev.preventDefault;
+      this.axios.get(`https://api.github.com/users/${this.github_username}`)
     .then((datos) => {
       const player = datos.data;
       this.username = player.login;
@@ -55,6 +61,7 @@ export default {
     .catch((error) => {
       alert(error);
     });
+    }
   }
 }
 </script>
@@ -63,8 +70,12 @@ export default {
 h3 {
   margin: 20px 0 0;
 }
+.card-img-top.img-thumbnail{
+  height: 160px;
+  width: 160px;
+}
 .img-thumbnail{
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
 }
 </style>
