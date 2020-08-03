@@ -52,9 +52,8 @@ export default {
     .catch((error) => {
       alert(error);
     });
-    this.axios.get('https://api.github.com/users/rayacarlo/followers')
+    this.axios.get(`https://api.github.com/users/${this.github_username}/followers`)
     .then((datos) => {
-      console.log(datos)
       const followers = datos.data;
       this.followers_object = followers;
     })
